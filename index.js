@@ -16,7 +16,7 @@ const Stop = require('./SiviaCmd/Stop')
 
 
 
-client.login('NTk4NTgxOTI2ODk4Njk2MjAz.XSYveQ.F3zsMR1TpJCd6SFvGN2CphsLx-w');
+client.login(process.env.TOKEN);
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
