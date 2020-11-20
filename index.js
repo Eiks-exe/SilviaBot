@@ -12,7 +12,7 @@ const Help = require('./SiviaCmd/Help')
 const SumV = require('./SiviaCmd/SumV')
 const ty = require('./SiviaCmd/ty')
 const Stop = require('./SiviaCmd/Stop')
-
+//all
 
 
 
