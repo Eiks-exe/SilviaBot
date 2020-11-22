@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const fs = require('fs')
-var youtubeStream = require('ytdl-core')
 const Join = require('./SiviaCmd/Join')
 const Leave = require('./SiviaCmd/Leave')
 const HiSilvia = require('./SiviaCmd/HiSilvia')
@@ -12,7 +11,7 @@ const Help = require('./SiviaCmd/Help')
 const SumV = require('./SiviaCmd/SumV')
 const ty = require('./SiviaCmd/ty')
 const Stop = require('./SiviaCmd/Stop')
-//all
+
 
 
 
