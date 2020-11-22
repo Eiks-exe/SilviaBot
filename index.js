@@ -20,7 +20,7 @@ client.login(process.env.TOKEN);
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
-    client.user.setActivity("Afk Arena");
+    client.user.setActivity("all of you", { type: "WATCHING" });
 
     //client.user.setAvatar('./Silvia.jpg')
 
