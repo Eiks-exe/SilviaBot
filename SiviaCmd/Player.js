@@ -1,19 +1,18 @@
-const ytS = require('yt-search')
-var youtubeStream = require('ytdl-core')
+const ytS = require('yt-search');
+var youtubeStream = require('ytdl-core');
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const Queue = require('@datastructures-js/queue');
 
-module.exports = class temp {
-    static match(message) {
-        return message.content.startsWith('<@!598581926898696203> play ')
+
+module.exports = class player {
+    constructor() {
+        this.queue = new Queue();
+        console.log(this.queue);
     }
 
-    static action(message) {
-        let args = message.content.split('<@!598581926898696203> play ') // crée un array avec le contenu du msg séparé par un ' ' 
-        let StrArgs = args[1]
-        // reconversion du tableau en chaine de caractères
-        //console.log(StrArgs)
-        ytS(StrArgs, function (err, r) {
+    play(SearchMsg , message) {
+        let a = this.queue
+        ytS(SearchMsg, function (err, r) {
             if (err) throw err
 
             const videos = r.videos
@@ -31,7 +30,7 @@ module.exports = class temp {
                 message.member.voice.channel
                     .join()
                     .then(function (connection) {
-                        let stream = youtubeStream(firstResult.url)
+
                         let embed = new Discord.MessageEmbed()
                         embed.setColor('#00cc00')
                         embed.title = 'playing'
@@ -42,11 +41,21 @@ module.exports = class temp {
 
                         message.delete()
                         message.channel.send(embed)
-                        connection.play(stream).on('end', function () {
-                            connection.disconnect()
+                        a.enqueue(firstResult.url)
+                        if (a.isEmpty() || firstResult.url == a.front()) {
+                            console.log('startplaying')
+                            let stream = youtubeStream(a.front())
+                            connection.play(stream).on('end', function () {
+                                console.log('next' + a.size())
+                                a.dequeue()
+                                if (a.size() > 0) {
+                                    this.play(a.front())
+                                } else {
+                                    connection.disconnect()
+                                }
+                            })
+                        }
 
-
-                        })
 
                     })
                     .catch(console.error);

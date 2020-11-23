@@ -4,14 +4,15 @@ const fs = require('fs')
 const Join = require('./SiviaCmd/Join')
 const Leave = require('./SiviaCmd/Leave')
 const HiSilvia = require('./SiviaCmd/HiSilvia')
-const Play = require('./SiviaCmd/Play')
+const PlayUrl = require('./SiviaCmd/PlayUrl')
 const Sum = require('./SiviaCmd/Sum')
-const temp = require('./SiviaCmd/temp')
+const Play = require('./SiviaCmd/Play')
 const Help = require('./SiviaCmd/Help')
 const SumV = require('./SiviaCmd/SumV')
 const ty = require('./SiviaCmd/ty')
-const Stop = require('./SiviaCmd/Stop')
-
+const Stop = require('./SiviaCmd/Stop');
+const Player = require('./SiviaCmd/Player');
+const lect = new Player();
 
 
 
@@ -35,7 +36,7 @@ client.on('message', function (message) {
     } else if (HiSilvia.match(message)) {
         HiSilvia.action(message)
     } else if (Play.match(message)) {
-        Play.action(message)
+        Play.action(message , lect)
     } else if (Sum.match(message)) {
         Sum.action(message)
     } else if (Help.match(message)) {
@@ -48,8 +49,8 @@ client.on('message', function (message) {
     } else if (message.content === 'ping') {
         // Send "pong" to the same channel
         message.channel.send('pong');
-    } else if (temp.match(message)) {
-        temp.action(message)
+    } else if (PlayUrl.match(message)) {
+        PlayUrl.action(message)
     } else if (ty.match(message)) {
         ty.action(message)
     } else if (Stop.match(message)) {
