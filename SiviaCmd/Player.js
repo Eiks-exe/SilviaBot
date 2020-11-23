@@ -10,7 +10,7 @@ module.exports = class player {
         console.log(this.queue);
     }
 
-    play(SearchMsg , message) {
+    play(SearchMsg, message) {
         let a = this.queue
         ytS(SearchMsg, function (err, r) {
             if (err) throw err
@@ -46,9 +46,10 @@ module.exports = class player {
                             console.log('startplaying')
                             let stream = youtubeStream(a.front())
                             connection.play(stream).on('end', function () {
-                                console.log('next' + a.size())
+                                //console.log('next' + a.size())
+                                message.send('next' + a.size())
                                 a.dequeue()
-                                if (a.size() > 0) {
+                                if (!a.isEmpty()) {
                                     this.play(a.front())
                                 } else {
                                     connection.disconnect()
