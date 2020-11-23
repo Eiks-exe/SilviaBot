@@ -45,7 +45,7 @@ module.exports = class player {
                         if (a.queue.isEmpty() || firstResult.url == a.queue.front()) {
                             console.log('startplaying')
                             let stream = youtubeStream(a.queue.front())
-                            connection.play(stream).on('end', end => {
+                            connection.play(stream).on('finish', () => {
                                 //console.log('next' + a.size())
                                 message.channel.send('next')
                                 a.queue.dequeue()
