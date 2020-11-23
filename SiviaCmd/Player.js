@@ -11,7 +11,7 @@ module.exports = class player {
     }
 
     play(SearchMsg, message) {
-        let a = this.queue
+        let a = this
         ytS(SearchMsg, function (err, r) {
             if (err) throw err
 
@@ -41,16 +41,16 @@ module.exports = class player {
 
                         message.delete()
                         message.channel.send(embed)
-                        a.enqueue(firstResult.url)
-                        if (a.isEmpty() || firstResult.url == a.front()) {
+                        a.queue.enqueue(firstResult.url)
+                        if (a.queue.isEmpty() || firstResult.url == a.queue.front()) {
                             console.log('startplaying')
-                            let stream = youtubeStream(a.front())
+                            let stream = youtubeStream(a.queue.front())
                             connection.play(stream).on('end', function () {
                                 //console.log('next' + a.size())
-                                message.send('next' + a.size())
-                                a.dequeue()
-                                if (!a.isEmpty()) {
-                                    this.play(a.front())
+                                message.send('next' + a.queue.size())
+                                a.queue.dequeue()
+                                if (!a.queue.isEmpty()) {
+                                    a.play(a.queue.front())
                                 } else {
                                     connection.disconnect()
                                 }
