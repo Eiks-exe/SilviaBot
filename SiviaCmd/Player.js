@@ -10,7 +10,7 @@ module.exports = class player {
         console.log(this.queue);
     }
 
-    play(SearchMsg, message) {
+    play(SearchMsg, message, url) {
         let a = this
         ytS(SearchMsg, function (err, r) {
             if (err) throw err
@@ -20,7 +20,7 @@ module.exports = class player {
             const accounts = r.accounts
 
             const firstResult = videos[0]
-
+            firstResult.url = url ? url : videos[0].url
             console.log(firstResult)
             //console.log(firstResult.url)
             //console.log(videos)
@@ -52,7 +52,7 @@ module.exports = class player {
                                 message.channel.send('next')
                                 if (!a.queue.isEmpty()) {
                                     message.channel.send('next')
-                                    a.play(a.queue.front())
+                                    a.play(a.queue.front(), message)
                                     message.channel.send('next')
                                 } else {
                                     connection.disconnect()
