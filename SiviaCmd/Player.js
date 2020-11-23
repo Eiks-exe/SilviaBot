@@ -49,8 +49,11 @@ module.exports = class player {
                                 //console.log('next' + a.size())
                                 message.channel.send('next')
                                 a.queue.dequeue()
+                                message.channel.send('next')
                                 if (!a.queue.isEmpty()) {
+                                    message.channel.send('next')
                                     a.play(a.queue.front())
+                                    message.channel.send('next')
                                 } else {
                                     connection.disconnect()
                                 }
