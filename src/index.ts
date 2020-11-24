@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { Client } from 'discord.js';
 const client = new Client();
 import Join from './SiviaCmd/Join';
@@ -12,7 +14,7 @@ import Stop from './SiviaCmd/Stop';
 import Player from './SiviaCmd/Player';
 const lect = new Player();
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN || '');
 //ready
 client.on('ready', () => {
     //Signifie que le bot à bien démarré

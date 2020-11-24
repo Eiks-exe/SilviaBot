@@ -20,7 +20,7 @@ export default class player {
 
             const firstResult = videos[0];
             firstResult.url = url ? url : videos[0].url;
-            console.log(firstResult);
+            //console.log(firstResult);
             //console.log(firstResult.url)
             //console.log(videos)
             //console.log(firstResult.thumbnail)
@@ -39,8 +39,8 @@ export default class player {
                 message.delete();
                 message.channel.send(embed);
                 this.queue.enqueue(firstResult.url);
-                if (this.queue.size() > 0 || firstResult.url == this.queue.peek()) {
-                    console.log('startplaying');
+                if (this.queue.size() == 0 || firstResult.url == this.queue.peek()) {
+                    console.log('startplaying' + this.queue.peek());
                     const stream = youtubeStream(this.queue.peek() || '');
                     const action = async () => {
                         //console.log('next' + this.queue.size())
