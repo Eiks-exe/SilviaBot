@@ -15,16 +15,8 @@ export default class player {
             const r = await ytS(SearchMsg);
 
             const videos = r.videos;
-            //const playlists = r.playlists;
-            //const accounts = r.accounts;
-
             const firstResult = videos[0];
             firstResult.url = url ? url : videos[0].url;
-            //console.log(firstResult);
-            //console.log(firstResult.url)
-            //console.log(videos)
-            //console.log(firstResult.thumbnail)
-
             if (message.member?.voice.channel) {
                 const connection = await message.member.voice.channel.join();
 
@@ -40,20 +32,21 @@ export default class player {
                 message.channel.send(embed);
                 this.queue.enqueue(firstResult.url);
                 if (this.queue.size() == 0 || firstResult.url == this.queue.peek()) {
-                    console.log('startplaying' + this.queue.peek());
+                    console.log('startplaying ' + this.queue.peek());
                     const stream = youtubeStream(this.queue.peek() || '');
                     const action = async () => {
                         //console.log('next' + this.queue.size())
-                        console.log('dequeue');
+                        console.log(this);
                         this.queue.dequeue();
-                        console.log('dequeue : OK');
+                        console.log(this);
                         if (this.queue.peek()) {
-                            console.log('Play Next');
+                            console.log(this);
+                            console.log(this.queue.peek());
                             const temp = this.queue.peek() || '';
-                            connection.disconnect();
                             await this.play(temp, message);
-                            console.log('Play Next : OK');
+                            console.log(this);
                         } else {
+                            //console.log('disconnecting');
                             connection.disconnect();
                         }
                     };
