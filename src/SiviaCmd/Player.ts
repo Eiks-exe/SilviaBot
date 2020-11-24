@@ -42,16 +42,17 @@ export default class player {
                 if (this.queue.size() > 0 || firstResult.url == this.queue.peek()) {
                     console.log('startplaying');
                     const stream = youtubeStream(this.queue.peek() || '');
-                    const action = () => {
+                    const action = async () => {
                         //console.log('next' + this.queue.size())
-                        message.channel.send('next');
+                        console.log('dequeue');
                         this.queue.dequeue();
-                        message.channel.send('next');
-                        if (!this.queue.peek()) {
-                            message.channel.send('next');
+                        console.log('dequeue : OK');
+                        if (this.queue.peek()) {
+                            console.log('Play Next');
                             const temp = this.queue.peek() || '';
-                            this.play(temp, message);
-                            message.channel.send('next');
+                            connection.disconnect();
+                            await this.play(temp, message);
+                            console.log('Play Next : OK');
                         } else {
                             connection.disconnect();
                         }
