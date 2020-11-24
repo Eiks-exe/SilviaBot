@@ -1,12 +1,12 @@
 import ytS from 'yt-search';
 import youtubeStream from 'ytdl-core';
 import Discord, { Message } from 'discord.js';
-import { Queue } from 'datastructure-ts/src/Queue/Queue';
+import { Queue } from '../Tool/Queue';
 
 export default class player {
     private queue: Queue<string>;
     constructor() {
-        this.queue = new Queue();
+        this.queue = new Queue<string>();
         console.log(this.queue);
     }
 
@@ -38,18 +38,19 @@ export default class player {
 
                 message.delete();
                 message.channel.send(embed);
-                this.queue.push(firstResult.url);
+                this.queue.enqueue(firstResult.url);
                 if (this.queue.size() > 0 || firstResult.url == this.queue.peek()) {
                     console.log('startplaying');
                     const stream = youtubeStream(this.queue.peek() || '');
                     const action = () => {
                         //console.log('next' + this.queue.size())
                         message.channel.send('next');
-                        this.queue.pop();
+                        this.queue.dequeue();
                         message.channel.send('next');
                         if (!this.queue.peek()) {
                             message.channel.send('next');
-                            this.play(this.queue.peek() || '', message);
+                            const temp = this.queue.peek() || '';
+                            this.play(temp, message);
                             message.channel.send('next');
                         } else {
                             connection.disconnect();

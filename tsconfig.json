@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".", //
-    "outDir": "build/", //Sortie compilation
-    "module": "esnext",
-    "target": "es5",
+    "outDir": "./dist", //Sortie compilation
+    "module": "commonjs",
+    "target": "es2018",
     "lib": [
       "es2018",
       "esnext.asynciterable"
@@ -26,7 +26,6 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "strict": true,
-    "noEmit": true
   },
   "exclude": [
     "node_modules",
@@ -38,6 +37,6 @@
     "src/setupTests.ts"
   ],
   "include": [
-    "src"
+    "src", "PlayUrl.ts"
   ]
 }
