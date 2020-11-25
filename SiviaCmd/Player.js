@@ -42,13 +42,12 @@ module.exports = class player {
                         message.delete()
                         message.channel.send(embed)
                         a.queue.enqueue(firstResult.url)
-                        if (a.queue.isEmpty() || firstResult.url == a.queue.front()) {
-                            console.log('startplaying')
-                            let stream = youtubeStream(a.queue.front())
-                            connection.play(stream).on('finish', () => {
-                                connection.disconnect()
-                            })
-                        }
+                        console.log('startplaying')
+                        let stream = youtubeStream(a.queue.front())
+                        connection.play(stream).on('finish', () => {
+                            connection.disconnect()
+                        })
+                        
 
 
                     })
