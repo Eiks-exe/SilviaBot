@@ -5,11 +5,7 @@ const Queue = require('@datastructures-js/queue');
 
 
 module.exports = class player {
-    constructor() {
-        this.queue = new Queue();
-        console.log(this.queue);
-    }
-
+   
     play(SearchMsg, message, url) {
         let a = this
         ytS(SearchMsg, function (err, r) {
@@ -30,20 +26,16 @@ module.exports = class player {
                 message.member.voice.channel
                     .join()
                     .then(function (connection) {
-
-                        let embed = new Discord.MessageEmbed()
-                        embed.setColor('#00cc00')
-                        embed.title = 'playing'
-                        embed.description = firstResult.title
-                        embed.addField('duration', firstResult.timestamp)
-                        embed.addField('link', firstResult.url)
-                        embed.setThumbnail(firstResult.image)
-
-                        message.delete()
-                        message.channel.send(embed)
-                        a.queue.enqueue(firstResult.url)
+                        const data = {
+                            title: firstResult.title, 
+                            timestamp:firstResult.timestamp, 
+                            url: firstResult.url, 
+                            image: firstResult.image
+                        }
+                        playEmbed('playing', data)
+                        
                         console.log('startplaying')
-                        let stream = youtubeStream(a.queue.front())
+                        let stream = youtubeStream(firstResult.url)
                         connection.play(stream).on('finish', () => {
                             connection.disconnect()
                         })
@@ -59,5 +51,21 @@ module.exports = class player {
             }
 
         })
+        
+  
+        async function playEmbed(statut, info){
+            let embed = new Discord.MessageEmbed()
+                        embed.setColor('#00cc00')
+                        embed.title = 'playing'
+                        embed.description = Object.values(info)[0]
+                        embed.addField('duration', Object.values(info)[1])
+                        embed.addField('link', Object.values(info)[2])
+                        embed.setThumbnail(Object.values(info)[3])
+
+                        message.delete()
+                        message.channel.send(embed)
+
+        } 
     }
+    
 }
