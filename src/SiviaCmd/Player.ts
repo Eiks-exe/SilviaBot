@@ -28,23 +28,19 @@ export default class player {
                 embed.addField('link', firstResult.url);
                 embed.setThumbnail(firstResult.image);
 
-                message.delete();
+                if (!url) message.delete();
                 message.channel.send(embed);
-                this.queue.enqueue(firstResult.url);
-                if (this.queue.size() == 0 || firstResult.url == this.queue.peek()) {
+                if (firstResult.url != this.queue.peek()) this.queue.enqueue(firstResult.url);
+                if (firstResult.url === this.queue.peek()) {
                     console.log('startplaying ' + this.queue.peek());
                     const stream = youtubeStream(this.queue.peek() || '');
                     const action = async () => {
                         //console.log('next' + this.queue.size())
-                        console.log(this);
                         this.queue.dequeue();
-                        console.log(this);
                         if (this.queue.peek()) {
-                            console.log(this);
                             console.log(this.queue.peek());
                             const temp = this.queue.peek() || '';
-                            await this.play(temp, message);
-                            console.log(this);
+                            await this.play('', message, temp);
                         } else {
                             //console.log('disconnecting');
                             connection.disconnect();

@@ -21,6 +21,12 @@ export class Queue<T> implements IQueue<T> {
     }
     peek(): T | undefined {
         if (this.storage.length > 0) {
+            return this.storage[0];
+        }
+        return undefined;
+    }
+    last(): T | undefined {
+        if (this.storage.length > 0) {
             return this.storage[this.storage.length - 1];
         }
         return undefined;
