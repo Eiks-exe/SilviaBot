@@ -12,11 +12,14 @@ export default class player {
 
     async play(SearchMsg: string, message: Message, url?: string): Promise<void> {
         try {
-            const r = await ytS(SearchMsg);
-
-            const videos = r.videos;
-            const firstResult = videos[0];
-            firstResult.url = url ? url : videos[0].url;
+            const firstResult = { url: '' };
+            if (url) {
+                firstResult.url = url;
+            } else {
+                const r = await ytS(SearchMsg);
+                const videos = r.videos;
+                firstResult.url = videos[0].url;
+            }
             if (message.member?.voice.channel) {
                 const connection = await message.member.voice.channel.join();
 
