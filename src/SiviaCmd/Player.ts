@@ -1,4 +1,4 @@
-import ytS, { VideoSearchResult } from 'yt-search';
+import ytS from 'yt-search';
 import youtubeStream from 'ytdl-core';
 import Discord, { Message } from 'discord.js';
 import { Queue } from '../Tool/Queue';
