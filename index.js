@@ -16,13 +16,13 @@ const lect = new Player();
 
 
 
-client.login('NTk4NTgxOTI2ODk4Njk2MjAz.XSYu3A.buohH1EsJ9qy_WNbrVdKnfj2G1w');
+client.login(process.env.TOKEN);
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
     client.user.setActivity("all of you", { type: "WATCHING" });
-    client.user.setUsername("SilviaDev");
-    client.user.setStatus('idle')
+    client.user.setUsername("Silvia");
+    client.user.setStatus('online')
     //client.user.setAvatar('./Silvia.jpg')
 
 });
