@@ -1,71 +1,86 @@
-const ytS = require('yt-search');
+const yts = require('yt-search');
 var youtubeStream = require('ytdl-core');
 const Discord = require('discord.js');
+const Play = require('./PlayUrl');
 const Queue = require('@datastructures-js/queue');
 
 
 module.exports = class player {
-   
-    play(SearchMsg, message, url) {
-        let a = this
-        ytS(SearchMsg, function (err, r) {
-            if (err) throw err
-
-            const videos = r.videos
-            const playlists = r.playlists
-            const accounts = r.accounts
-
-            const firstResult = videos[0]
-            firstResult.url = url ? url : videos[0].url
-            console.log(firstResult)
-            //console.log(firstResult.url)
-            //console.log(videos)
-            //console.log(firstResult.thumbnail)
-
-            if (message.member.voice.channel) {
-                message.member.voice.channel
-                    .join()
-                    .then(function (connection) {
-                        const data = {
-                            title: firstResult.title, 
-                            timestamp:firstResult.timestamp, 
-                            url: firstResult.url, 
-                            image: firstResult.image
-                        }
-                        playEmbed('playing', data)
-                        
-                        console.log('startplaying')
-                        let stream = youtubeStream(firstResult.url)
-                        connection.play(stream).on('finish', () => {
-                            connection.disconnect()
-                        })
-                        
-
-
-                    })
-                    .catch(console.error);
-            }
-            else {
-                message.delete()
-                message.reply('u should be connected to a channel');
-            }
-
-        })
+    constructor(){
+        this.queue = new Queue()
+        this.connection = undefined
+    }
         
-  
-        async function playEmbed(statut, info){
+    async play(SearchMsg, message, nextPlay) {
+        try{
+            let itemUrl = '' 
+            if(nextPlay){
+                const {url , title , timestamp , image } = await (await yts({videoId: nextPlay.replace('https://youtube.com/watch?v=','')}))
+                itemUrl= url;
+                playEmbed('▶ Playing', title, timestamp, url, image);
+            }else{
+                const {url , title , timestamp , image } = await (await yts(SearchMsg)).videos[0]
+                itemUrl= url;
+                playEmbed('✅ Added to queue', title, timestamp,url, image)
+            }
+            if(message.member.voice.channel){
+                this.connection = await message.member.voice.channel.join()
+                if(itemUrl != this.queue.front()) this.queue.enqueue(itemUrl);
+                if(itemUrl === this.queue.front()){
+                    
+                    
+
+                    const stream = youtubeStream(this.queue.front());
+                    const action = async () => {
+                        this.queue.dequeue()
+                        if(this.queue.front()){
+                            const temp = this.queue.front();
+                            this.play('', message, temp).catch(error)
+                        }else{
+                            message.channel.send('❎ queue is empty')
+                            this.connection.disconnect()
+                            
+                        }
+                    };
+                    this.connection.play(stream).on('finish',action)
+                    console.log('startplaying ' + this.queue.front());
+                }
+            }else{
+                message.delete()
+                message.reply('❌ you must be in a VoiceChannel')
+            }
+        } catch(error){
+            console.error(error)
+        }
+            function playEmbed(statut, title, timestamp, url, image){
             let embed = new Discord.MessageEmbed()
                         embed.setColor('#00cc00')
-                        embed.title = 'playing'
-                        embed.description = Object.values(info)[0]
-                        embed.addField('duration', Object.values(info)[1])
-                        embed.addField('link', Object.values(info)[2])
-                        embed.setThumbnail(Object.values(info)[3])
-
-                        message.delete()
+                        embed.title = statut
+                        embed.description = title ;
+                        embed.addField('duration', timestamp);
+                        embed.addField('link', url)
+                        embed.setThumbnail(image)
                         message.channel.send(embed)
+                        if(statut === '✅ Added to queue'){
+                            message.delete()
+                        } 
 
         } 
+    }
+
+    async stop(message){
+        try{
+            if(this.connection){
+                this.connection.disconnect()
+                this.queue.clear()
+                message.channel.send('i stopped playing')
+            }else{
+                
+            }
+            
+        }catch(error){
+            console.error(error)
+        }
     }
     
 }

@@ -16,12 +16,13 @@ const lect = new Player();
 
 
 
-client.login(process.env.TOKEN);
+client.login('NTk4NTgxOTI2ODk4Njk2MjAz.XSYu3A.buohH1EsJ9qy_WNbrVdKnfj2G1w');
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
     client.user.setActivity("all of you", { type: "WATCHING" });
-
+    client.user.setUsername("SilviaDev");
+    client.user.setStatus('idle')
     //client.user.setAvatar('./Silvia.jpg')
 
 });
@@ -54,7 +55,7 @@ client.on('message', function (message) {
     } else if (ty.match(message)) {
         ty.action(message)
     } else if (Stop.match(message)) {
-        Stop.action(message)
+        Stop.action(message , lect)
     } else if (message.content === 'what is my avatar') {
         // Send the user's avatar URL
         message.send(message.author.displayAvatarURL());
