@@ -12,11 +12,12 @@ const SumV = require('./SiviaCmd/SumV')
 const ty = require('./SiviaCmd/ty')
 const Stop = require('./SiviaCmd/Stop');
 const Player = require('./SiviaCmd/Player');
+//const Skip = require('./SiviaCmd/Skip')
 const lect = new Player();
 
 
 
-client.login(process.env.TOKEN);
+client.login('NTk4NTgxOTI2ODk4Njk2MjAz.XSYu3A.r_Jn-PCZ14mWc7QENAa77ZN13Cw');
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio

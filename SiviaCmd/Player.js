@@ -9,6 +9,7 @@ module.exports = class player {
     constructor(){
         this.queue = new Queue()
         this.connection = undefined
+        this.stream = undefined
     }
         
     async play(SearchMsg, message, nextPlay) {
@@ -30,19 +31,18 @@ module.exports = class player {
                     
                     
 
-                    const stream = youtubeStream(this.queue.front());
+                    this.stream = youtubeStream(this.queue.front() ,  {filter: 'audioonly' , quality:'lowestaudio'});
                     const action = async () => {
                         this.queue.dequeue()
                         if(this.queue.front()){
-                            const temp = this.queue.front();
-                            this.play('', message, temp).catch(error)
+                            this.play('', message, this.queue.front())
                         }else{
                             message.channel.send('❎ queue is empty')
                             this.connection.disconnect()
                             
                         }
                     };
-                    this.connection.play(stream).on('finish',action)
+                    this.connection.play(this.stream).on('finish',action)
                     console.log('startplaying ' + this.queue.front());
                 }
             }else{
@@ -82,5 +82,13 @@ module.exports = class player {
             console.error(error)
         }
     }
-    
+/*    async skip(message){
+        try{
+            if(this.connection){
+                
+            }
+        }catch(error){
+            console.error(error)
+        }
+    } */
 }
