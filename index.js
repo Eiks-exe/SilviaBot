@@ -17,7 +17,7 @@ const lect = new Player();
 
 
 
-client.login('NTk4NTgxOTI2ODk4Njk2MjAz.XSYu3A.r_Jn-PCZ14mWc7QENAa77ZN13Cw');
+client.login(process.env.TOKEN);
 //ready
 client.on("ready", () => { //Signifie que le bot à bien démarré
     console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
