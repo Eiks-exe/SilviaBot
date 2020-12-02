@@ -14,7 +14,7 @@ const Stop = require('./SiviaCmd/Stop');
 const Player = require('./SiviaCmd/Player');
 //const Skip = require('./SiviaCmd/Skip')
 const lect = new Player();
-
+//
 
 
 client.login(process.env.TOKEN);
