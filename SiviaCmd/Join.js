@@ -1,6 +1,6 @@
 module.exports = class Join {
     static match(message) {
-        return message.content == '<@!598581926898696203> join'
+        return message.content == `${process.env.PREFIX} join `
     }
 
     static action(message) {

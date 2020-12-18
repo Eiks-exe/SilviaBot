@@ -5,7 +5,7 @@ const {
 } = require('ytdl-core');
 module.exports = class Play {
     static match(message) {
-        return message.content.startsWith('<@!598581926898696203> playUrl ')
+        return message.content.startsWith(`${process.env.PREFIX} playUrl `)
     }
 
     static async action(message) {

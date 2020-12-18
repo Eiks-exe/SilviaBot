@@ -3,7 +3,7 @@ module.exports = class HiSilvia
 {
     static match (message)
     {
-        return message.content.startsWith('Hi <@!598581926898696203>')
+        return message.content.startsWith(`hi ${process.env.PREFIX}`)
     }
 
    static action (message)

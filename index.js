@@ -14,7 +14,6 @@ const Stop = require('./SiviaCmd/Stop');
 const Player = require('./SiviaCmd/Player');
 //const Skip = require('./SiviaCmd/Skip')
 const lect = new Player();
-//
 
 
 client.login(process.env.TOKEN);
@@ -45,7 +44,7 @@ client.on('message', function (message) {
         Help.action(message)
     } else if (SumV.match(message)) {
         SumV.action(message)
-    } else if (message.content === '<@!598581926898696203>') {
+    } else if (message.content === `${process.env.PREFIX}`) {
         message.reply('yes, sir ?')
         console.log(message.channel.type)
     } else if (message.content === 'ping') {

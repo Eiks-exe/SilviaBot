@@ -2,7 +2,7 @@ module.exports = class ty
 {
     static match (message)
     {
-        return message.content.startsWith('thx <@!598581926898696203>')
+        return message.content.startsWith(`ty ${process.env.PREFIX}`)
 
     }
     
