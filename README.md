@@ -2,7 +2,7 @@
 
 Silvia is a discord's bot that play music 🎵
 
-## commande
+## commands
 
 ### Mention silvia to ask her to do something :
 
