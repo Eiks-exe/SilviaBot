@@ -4,18 +4,20 @@ const fs = require('fs')
 const Join = require('./SiviaCmd/Join')
 const Leave = require('./SiviaCmd/Leave')
 const HiSilvia = require('./SiviaCmd/HiSilvia')
-const PlayUrl = require('./SiviaCmd/PlayUrl')
 const Sum = require('./SiviaCmd/Sum')
-const Play = require('./SiviaCmd/Play')
 const Help = require('./SiviaCmd/Help')
 const SumV = require('./SiviaCmd/SumV')
 const ty = require('./SiviaCmd/ty')
-const Stop = require('./SiviaCmd/Stop');
+
 const Player = require('./SiviaCmd/Player');
+const PlayUrl = require('./SiviaCmd/PlayUrl')
+const Play = require('./SiviaCmd/Play')
+const Stop = require('./SiviaCmd/Stop');
 //const Skip = require('./SiviaCmd/Skip')
 const lect = new Player();
 const dotenv = require('dotenv')
 dotenv.config()
+
 
 client.login(process.env.TOKEN);
 //ready
