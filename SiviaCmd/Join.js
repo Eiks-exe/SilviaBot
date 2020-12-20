@@ -1,6 +1,9 @@
+const dotenv = require('dotenv')
+dotenv.config()
+
 module.exports = class Join {
     static match(message) {
-        return message.content == `${process.env.PREFIX} join `
+        return message.content == `${process.env.PREFIX} join`
     }
 
     static action(message) {
