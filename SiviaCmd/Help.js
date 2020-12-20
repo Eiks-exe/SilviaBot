@@ -4,7 +4,7 @@ module.exports = class Help
 {
     static match(message)
     {
-        return message.content.startsWith(`${process.env.PREFIX} help `)
+        return message.content.startsWith(`${process.env.PREFIX} help`)
     }
 
     static action(message)
