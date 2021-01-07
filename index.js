@@ -13,7 +13,8 @@ const Player = require('./SiviaCmd/Player');
 const PlayUrl = require('./SiviaCmd/PlayUrl')
 const Play = require('./SiviaCmd/Play')
 const Stop = require('./SiviaCmd/Stop');
-//const Skip = require('./SiviaCmd/Skip')
+const Skip = require('./SiviaCmd/Skip')
+
 const lect = new Player();
 const dotenv = require('dotenv')
 dotenv.config()
@@ -59,6 +60,8 @@ client.on('message', function (message) {
         ty.action(message)
     } else if (Stop.match(message)) {
         Stop.action(message , lect)
+    } else if (Skip.match(message)){
+        Skip.action(message, lect)
     } else if (message.content === 'what is my avatar') {
         // Send the user's avatar URL
         message.send(message.author.displayAvatarURL());
