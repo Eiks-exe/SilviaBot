@@ -82,13 +82,23 @@ module.exports = class player {
             console.error(error)
         }
     }
-/*    async skip(message){
+    async skip(message){
         try{
             if(this.connection){
-                
+                this.connection.play(this.stream).destroy()
+                this.queue.dequeue()
+                        if(this.queue.front()){
+                            message.channel.send('⏭ song skipped')
+                            this.play('', message, this.queue.front())
+                        }else{
+                            message.channel.send('❎ queue is empty')
+                            this.connection.disconnect()
+                            
+                        }
             }
         }catch(error){
             console.error(error)
         }
-    } */
+    }
+
 }
