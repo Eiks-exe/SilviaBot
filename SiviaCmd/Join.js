@@ -5,7 +5,6 @@ module.exports = class Join {
     static match(message) {
         return message.content == `${process.env.PREFIX} join` 
     }
-
     static action(message) {
         if (message.member.voice.channel) {
             message.member.voice.channel.join()

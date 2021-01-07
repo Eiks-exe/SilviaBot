@@ -4,10 +4,8 @@ module.exports = class Leave
     {
         return message.content == `${process.env.PREFIX} leave`
     }
-
    static action (message)
     {
-        
         if(message.member.voice.channel)
         {
             if(message.guild.voice.connection)
@@ -15,7 +13,6 @@ module.exports = class Leave
                 message.member.voice.channel.leave()
                 message.delete()
             }
-            
         }
     }
 }

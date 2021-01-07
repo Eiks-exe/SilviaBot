@@ -10,7 +10,6 @@ module.exports = class Help
             return (message.content.startsWith(`${process.env.MOBPREFIX}help`))
         }
     }
-
     static action(message)
     {
        console.log(client.user.isMentionned) 
