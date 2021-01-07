@@ -2,7 +2,7 @@ module.exports = class Leave
 {
     static match (message)
     {
-        return message.content == `${process.env.PREFIX} leave`
+        return message.content == `${process.env.PREFIX} leave` || `${process.env.MOBPREFIX}leave` 
     }
 
    static action (message)

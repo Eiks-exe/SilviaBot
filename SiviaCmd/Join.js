@@ -3,7 +3,7 @@ dotenv.config()
 
 module.exports = class Join {
     static match(message) {
-        return message.content == `${process.env.PREFIX} join`
+        return message.content == `${process.env.PREFIX} join` || `${process.env.MOBPREFIX}join` 
     }
 
     static action(message) {
