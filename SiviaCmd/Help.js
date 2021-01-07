@@ -4,7 +4,11 @@ module.exports = class Help
 {
     static match(message)
     {
-        return (message.content.startsWith(`${process.env.PREFIX} help`) || message.content.startsWith(`${process.env.MOBPREFIX}help`) )
+        if(message.content.startsWith(`${process.env.PREFIX} help`)){
+            return (message.content.startsWith(`${process.env.PREFIX} help`))
+        } else if(message.content.startsWith(`${process.env.MOBPREFIX}help`)){
+            return (message.content.startsWith(`${process.env.MOBPREFIX}help`))
+        }
     }
 
     static action(message)

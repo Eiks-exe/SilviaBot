@@ -2,7 +2,11 @@
 
 module.exports = class temp {
     static match(message) {
-        return (message.content.startsWith(`${process.env.PREFIX} play `) || message.content.startsWith(`${process.env.MOBPREFIX}play `) ) 
+        if(message.content.startsWith(`${process.env.PREFIX} play `)){
+            return (message.content.startsWith(`${process.env.PREFIX} play `))
+        } else if(message.content.startsWith(`${process.env.MOBPREFIX}play `)){
+            return (message.content.startsWith(`${process.env.MOBPREFIX}play `))
+        } 
     }
 
     static action(message, lect) {
