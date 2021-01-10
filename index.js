@@ -64,9 +64,9 @@ client.on('message', function (message) {
         Skip.action(message, lect)
     } else if (message.content === 'what is my avatar') {
         // Send the user's avatar URL
-        message.send(message.author.displayAvatarURL());
+        message.channel.send(message.author.displayAvatarURL());
     } else if (message.content === 'botAvatar') {
-        message.send(client.user.displayAvatarURL())
+        message.channel.send(client.user.displayAvatarURL())
     }
 
 });
