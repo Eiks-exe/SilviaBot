@@ -8,7 +8,7 @@ const Queue = require('@datastructures-js/queue');
 module.exports = class Player {
     constructor(){
         this.queue = new Queue()
-        this.connection
+        this.connection = undefined ;
         this.stream = undefined
         this.message
     }
