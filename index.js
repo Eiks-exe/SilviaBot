@@ -21,12 +21,15 @@ dotenv.config()
 
 
 client.login(process.env.TOKEN);
-//ready
-client.on("ready", () => { //Signifie que le bot à bien démarré
-    console.log("Je suis prête !"); //Lorsque que le bot est lancé observer la console Visual Studio
+
+
+// TODO change the env's vars 
+
+client.on("ready", () => { 
+    console.log("Je suis prête !"); 
     client.user.setActivity("all of you", { type: "WATCHING" });
     client.user.setUsername("Silvia");
-    client.user.setStatus('online')
+    client.user.setStatus('online');
     //client.user.setAvatar('./Silvia.jpg')
 
 });
@@ -63,7 +66,6 @@ client.on('message', function (message) {
     } else if (Skip.match(message)){
         Skip.action(message, lect)
     } else if (message.content === 'what is my avatar') {
-        // Send the user's avatar URL
         message.channel.send(message.author.displayAvatarURL());
     } else if (message.content === 'botAvatar') {
         message.channel.send(client.user.displayAvatarURL())
