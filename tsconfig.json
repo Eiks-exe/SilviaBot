@@ -3,14 +3,13 @@
     "baseUrl": ".", //
     "outDir": "./dist", //Sortie compilation
     "module": "commonjs",
-    "target": "es2018",
+    "target": "ESNext",
     "lib": [
-      "es2018",
+      "esnext",
       "esnext.asynciterable"
     ],
     "sourceMap": true, 
     "allowJs": true,
-    "jsx": "react",
     "moduleResolution": "node",
     "rootDir": "src", //Source
     "forceConsistentCasingInFileNames": true,

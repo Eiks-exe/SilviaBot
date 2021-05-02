@@ -51,7 +51,7 @@ export default class player {
                 message.reply('u should be connected to a channel');
             }
         } catch (error) {
-            console.error(error);
+            console.error('ERR:', error);
         }
     }
 
