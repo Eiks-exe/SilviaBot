@@ -2,7 +2,7 @@ const yts = require('yt-search');
 var youtubeStream = require('ytdl-core');
 const Discord = require('discord.js');
 const Play = require('./PlayUrl');
-const Queue = require('@datastructures-js/queue');
+const { Queue } = require('@datastructures-js/queue');
 
 
 module.exports = class player {
