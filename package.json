@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon dist/index.js",
     "start": "webpack --mode=production && node dist/index.js",
-    "prod" : "webpack --mode=production && pm2 start dist/index.js"
+    "prod" : "npx tsc && pm2 start dist/index.js"
   },
   "dependencies": {
     "@datastructures-js/queue": "^4.0.0",
