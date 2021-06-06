@@ -14,6 +14,7 @@ import ty from './SiviaCmd/ty';
 import Player from './SiviaCmd/Player';
 import Stop from './SiviaCmd/Stop';
 import Play from './SiviaCmd/Play';
+import Skip from './SiviaCmd/Skip';
 
 import Actions from './SiviaCmd/Actions/Action';
 import Coffee from './SiviaCmd/Actions/Coffee';
@@ -55,6 +56,8 @@ client.on('message', function (message) {
         ty.action(message);
     } else if (Stop.match(message)) {
         Stop.action(message, lect);
+    } else if (Skip.match(message)) {
+        Skip.action(message, lect);
     } else if (Coffee.match(message)){
         Coffee.action(message, action);
     }

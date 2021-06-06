@@ -6,10 +6,12 @@ import { Queue } from '../Tool/Queue';
 export default class player {
     private queue: Queue<string>;
     connection: any;
+    stream : any;
     constructor() {
         this.queue = new Queue<string>();
         console.log(this.queue);
         this.connection = undefined ;
+        this.stream = undefined;
     }
 
     async play(SearchMsg: string, message: Message, nextPlay?: string): Promise<void> {
@@ -33,7 +35,7 @@ export default class player {
                 if (itemUrl != this.queue.peek()) this.queue.enqueue(itemUrl);
                 if (itemUrl === this.queue.peek()) {
                     console.log('startplaying ' + this.queue.peek());
-                    const stream = youtubeStream(this.queue.peek() || '');
+                    this.stream = youtubeStream(this.queue.peek() || '');
                     const action = async () => {
                         //console.log('next' + this.queue.size())
                         this.queue.dequeue();
@@ -46,7 +48,7 @@ export default class player {
                             this.connection.disconnect();
                         }
                     };
-                    this.connection.play(stream).on('finish', action);
+                    this.connection.play(this.stream).on('finish', action);
                 }
             } else {
                 message.delete();
@@ -64,9 +66,27 @@ export default class player {
                 this.queue.clear();
                 message.reply('i stopped playing');
             }else{
-                message.reply("im not playing playing anything right now.")
+                message.reply("im not playing playing anything right now.");
             }
         }catch(error){
+            console.error(error);
+        }
+    }
+
+    async skip(message : Message){
+        try {
+            if(this.connection){
+                this.connection.play(this.stream).destroy()
+                this.queue.dequeue()
+                if(this.queue.peek()){
+                    message.channel.send('song have been skipped');
+                    this.play('', message, this.queue.peek());
+                }else{
+                    message.channel.send('❎ queue is empty')
+                    this.connection.disconnect()
+                }
+            }
+        } catch (error) {
             console.error(error)
         }
     }
