@@ -27,7 +27,7 @@ client.on('ready', () => {
     //Signifie que le bot à bien démarré
     console.log('im ready !'); //Lorsque que le bot est lancé observer la console Visual Studio
     if (client.user) client.user.setActivity('all of you', { type: 'WATCHING' });
-    client.user?.setUsername("InferusVoid");
+    //client.user?.setUsername("InferusVoid");
     //client.user.setAvatar('./Silvia.jpg')
 });
 
