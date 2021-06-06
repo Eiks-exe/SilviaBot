@@ -5,10 +5,10 @@ export default class Actions {
         return Math.floor(Math.random()* max)
     }
     async coffee(message: Message) {
-        giphy.search('anime coffee')
+        giphy.search('anime manga coffee')
             .then((res : any) => {
                 message.channel.send("here's some coffee <3 ❤️☕️");
-                message.channel.send(res.data[this.getRandom(10)].url);
+                message.channel.send(res.data[this.getRandom(5)].url);
             }).catch((err : any) => console.error(err))
 
        
