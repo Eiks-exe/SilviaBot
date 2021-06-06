@@ -5,9 +5,11 @@ import { Queue } from '../Tool/Queue';
 
 export default class player {
     private queue: Queue<string>;
+    connection: any;
     constructor() {
         this.queue = new Queue<string>();
         console.log(this.queue);
+        this.connection = undefined ;
     }
 
     async play(SearchMsg: string, message: Message, nextPlay?: string): Promise<void> {
@@ -27,7 +29,7 @@ export default class player {
             }
 
             if (message.member?.voice.channel) {
-                const connection = await message.member.voice.channel.join();
+                this.connection = await message.member.voice.channel.join();
                 if (itemUrl != this.queue.peek()) this.queue.enqueue(itemUrl);
                 if (itemUrl === this.queue.peek()) {
                     console.log('startplaying ' + this.queue.peek());
@@ -41,10 +43,10 @@ export default class player {
                             await this.play('', message, temp);
                         } else {
                             //console.log('disconnecting');
-                            connection.disconnect();
+                            this.connection.disconnect();
                         }
                     };
-                    connection.play(stream).on('finish', action);
+                    this.connection.play(stream).on('finish', action);
                 }
             } else {
                 message.delete();
@@ -52,6 +54,20 @@ export default class player {
             }
         } catch (error) {
             console.error('ERR:', error);
+        }
+    }
+
+    async stop(message: Message){
+        try{
+            if(this.connection){
+                this.connection.disconnect();
+                this.queue.clear();
+                message.reply('i stopped playing');
+            }else{
+                message.reply("im not playing playing anything right now.")
+            }
+        }catch(error){
+            console.error(error)
         }
     }
 

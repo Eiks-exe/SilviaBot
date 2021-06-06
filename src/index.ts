@@ -6,20 +6,27 @@ import Join from './SiviaCmd/Join';
 import Leave from './SiviaCmd/Leave';
 import HiSilvia from './SiviaCmd/HiSilvia';
 import Sum from './SiviaCmd/Sum';
-import Play from './SiviaCmd/Play';
+
 import Help from './SiviaCmd/Help';
 import SumV from './SiviaCmd/SumV';
 import ty from './SiviaCmd/ty';
-import Stop from './SiviaCmd/Stop';
-import Player from './SiviaCmd/Player';
-const lect = new Player();
 
+import Player from './SiviaCmd/Player';
+import Stop from './SiviaCmd/Stop';
+import Play from './SiviaCmd/Play';
+
+import Actions from './SiviaCmd/Actions/Action';
+import Coffee from './SiviaCmd/Actions/Coffee';
+
+const lect = new Player();
+const action = new Actions();
 client.login(process.env.TOKEN || '');
 //ready
 client.on('ready', () => {
     //Signifie que le bot à bien démarré
-    console.log('Je suis prête !'); //Lorsque que le bot est lancé observer la console Visual Studio
+    console.log('im ready !'); //Lorsque que le bot est lancé observer la console Visual Studio
     if (client.user) client.user.setActivity('all of you', { type: 'WATCHING' });
+    client.user?.setUsername("InferusVoid");
     //client.user.setAvatar('./Silvia.jpg')
 });
 
@@ -38,7 +45,7 @@ client.on('message', function (message) {
         Help.action(message);
     } else if (SumV.match(message)) {
         SumV.action(message);
-    } else if (message.content === '<@!598581926898696203>') {
+    } else if (message.content === process.env.PREFIX) {
         message.reply('yes, sir ?');
         console.log(message.channel.type);
     } else if (message.content === 'ping') {
@@ -47,11 +54,8 @@ client.on('message', function (message) {
     } else if (ty.match(message)) {
         ty.action(message);
     } else if (Stop.match(message)) {
-        Stop.action(message);
-    } else if (message.content === 'what is my avatar') {
-        // Send the user's avatar URL
-        message.reply(message.author.displayAvatarURL());
-    } else if (message.content === 'botAvatar') {
-        if (client.user) message.reply(client.user.displayAvatarURL());
+        Stop.action(message, lect);
+    } else if (Coffee.match(message)){
+        Coffee.action(message, action);
     }
 });

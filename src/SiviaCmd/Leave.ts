@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 export default class Leave {
     static match(message: Message): boolean {
-        return message.content == '<@!598581926898696203> leave';
+        return message.content == `${process.env.PREFIX} leave`;
     }
 
     static action(message: Message): void {

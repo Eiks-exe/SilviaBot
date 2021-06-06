@@ -1,15 +1,11 @@
 import { Message } from 'discord.js';
+import Player from './Player';
 
 export default class stop {
     static match(message: Message): boolean {
-        return message.content.startsWith('<@!598581926898696203> stop');
+        return message.content.startsWith(`${process.env.PREFIX} stop`) || message.content.startsWith(`${process.env.MOBPREFIX}stop`) ;
     }
-    static action(message: Message): void {
-        if (message.member?.voice.channel)
-            message.member.voice.channel.join().then(function (connection) {
-                connection.dispatcher.end();
-                message.delete();
-                message.channel.send('i stopped');
-            });
+    static action(message: Message ,lect: Player): void {
+        lect.stop(message)
     }
 }

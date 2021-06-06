@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 export default class Join {
     static match(message: Message): boolean {
-        return message.content == '<@!598581926898696203> join';
+        return message.content == `${process.env.PREFIX} join`;
     }
 
     static action(message: Message): void {

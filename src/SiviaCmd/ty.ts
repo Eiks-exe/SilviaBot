@@ -2,7 +2,7 @@ import { Message } from 'discord.js';
 
 export default class ty {
     static match(message: Message): boolean {
-        return message.content.startsWith('thx <@!598581926898696203>');
+        return message.content.startsWith(`ty ${process.env.PREFIX}`);
     }
 
     static action(message: Message): void {

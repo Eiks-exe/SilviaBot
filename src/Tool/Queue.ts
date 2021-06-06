@@ -34,4 +34,7 @@ export class Queue<T> implements IQueue<T> {
     size(): number {
         return this.storage.length;
     }
+    clear(): any {
+        return this.storage = [];
+    }
 }

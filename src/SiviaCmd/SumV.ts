@@ -2,7 +2,7 @@ import { Message, MessageEmbed } from 'discord.js';
 
 export default class SumV {
     static match(message: Message): boolean {
-        return message.content.startsWith('<@!598581926898696203> sumv');
+        return message.content.startsWith(`${process.env.PREFIX} sumv`);
     }
 
     static action(message: Message): void {
